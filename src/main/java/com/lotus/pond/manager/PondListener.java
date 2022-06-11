@@ -12,7 +12,7 @@ public class PondListener {
 
     Logger logger = LoggerFactory.getLogger(PondListener.class);
 
-    @KafkaListener(topics = {"pond"}, groupId = "pond-manager")
+    @KafkaListener(topics = {"pond"})
     public void listener(String value) {
         logger.info("I got [{}]", value);
     }
