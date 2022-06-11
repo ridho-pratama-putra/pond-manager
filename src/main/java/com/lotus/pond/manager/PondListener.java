@@ -18,7 +18,7 @@ public class PondListener {
     @KafkaListener(topics = {"pond"})
     public void listener(
             @Payload String value,
-            @Header(KafkaHeaders.RECEIVED_MESSAGE_KEY) Integer key,
+            @Header(KafkaHeaders.RECEIVED_MESSAGE_KEY) String key,
             @Header(KafkaHeaders.RECEIVED_PARTITION_ID) int partition) {
         logger.info("I got [{}] with key [{}] in [{}]", value, key, partition);
     }

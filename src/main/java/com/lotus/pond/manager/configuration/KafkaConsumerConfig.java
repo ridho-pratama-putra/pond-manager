@@ -43,10 +43,10 @@ public class KafkaConsumerConfig {
     private String groupId;
 
     @Bean
-    public ConsumerFactory<Integer,String> consumerFactory(){
+    public ConsumerFactory<String,String> consumerFactory(){
         logger.info("config consumer ");
         Map<String, Object> configProps = configs();
-        DefaultKafkaConsumerFactory<Integer, String> result = new DefaultKafkaConsumerFactory<>(configProps);
+        DefaultKafkaConsumerFactory<String, String> result = new DefaultKafkaConsumerFactory<>(configProps);
         logger.info("result [{}]", result.getConfigurationProperties());
         return result;
     }
@@ -57,7 +57,7 @@ public class KafkaConsumerConfig {
         configs.put(ConsumerConfig.GROUP_ID_CONFIG, groupId);
         configs.put(ConsumerConfig.CLIENT_ID_CONFIG, clientId);
         configs.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, false);
-        configs.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, IntegerDeserializer.class);
+        configs.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         configs.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         configs.put(SaslConfigs.SASL_MECHANISM, saslMechanism);
         configs.put(SaslConfigs.SASL_JAAS_CONFIG, saslJaasConfig);
@@ -66,8 +66,8 @@ public class KafkaConsumerConfig {
     }
 
     @Bean
-    public ConcurrentKafkaListenerContainerFactory<Integer, String> kafkaListenerContainerFactory() {
-        ConcurrentKafkaListenerContainerFactory<Integer, String> factory =
+    public ConcurrentKafkaListenerContainerFactory<String, String> kafkaListenerContainerFactory() {
+        ConcurrentKafkaListenerContainerFactory<String, String> factory =
                 new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(consumerFactory());
         return factory;
